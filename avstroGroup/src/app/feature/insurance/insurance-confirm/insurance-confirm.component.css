@@ -1,0 +1,21 @@
+.confirm-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 5px 2px orange;
+    border-radius: 10px 10px 10px 10px;
+    margin: 0 100px;
+    padding: 30px;
+}
+
+.cancel, .public {
+    border-radius: 10px 10px 10px 10px;
+    background-color: orange;
+    padding: 10px 50px;
+    font-size: 22px;
+    font-weight: bolder;
+    border-style: none;
+    box-shadow: 0px 0px 2px 2px gray;
+    margin: 10px 20px;
+}

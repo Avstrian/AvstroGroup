@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { HomePageComponent } from './home/home-page/home-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
 import { PageNotFoundPageComponent } from './page-not-found-page/page-not-found-page.component';
-import { InsuranceOverviewComponent } from './home/insurance-overview/insurance-overview.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 
 
@@ -12,11 +13,12 @@ import { InsuranceOverviewComponent } from './home/insurance-overview/insurance-
   declarations: [
     HomePageComponent,
     PageNotFoundPageComponent,
-    InsuranceOverviewComponent
+    AboutPageComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ]
 })
 export class PagesModule { }

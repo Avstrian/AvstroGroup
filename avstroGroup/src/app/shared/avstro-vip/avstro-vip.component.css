@@ -1,0 +1,24 @@
+.avstrovip-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 50px;
+    background-color: orange;
+    padding: 30px;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 5px 5px 4px 3px gray;
+}
+
+.avstrovip-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.avstrovip-text p {
+    font-size: 20px;
+}
+
+.avstrovip-text h1 {
+    font-size: 45px;
+}

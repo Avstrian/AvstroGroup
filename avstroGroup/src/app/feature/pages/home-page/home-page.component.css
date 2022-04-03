@@ -1,0 +1,51 @@
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    padding: 220px;
+    box-shadow: 1px 1px 5px 2px gray;
+    border-radius: 0px 0px 120px 120px;
+    background-image: url('../../../../assets/background.jpg');
+}
+
+.header-buttons button {
+    border-radius: 10px 10px 10px 10px;
+    background-color: orange;
+    padding: 10px 50px;
+    font-size: 22px;
+    font-weight: bolder;
+    border-style: none;
+    box-shadow: 0px 0px 2px 2px gray;
+    margin: 0 20px;
+}
+
+.header-text {
+    text-align: center;
+}
+
+.header-text h1 {
+    font-size: 70px;
+    color: white;
+}
+
+.header-text p {
+    font-size: 24px;
+    color: white
+}
+
+
+.insurance-calculator-container {
+    margin: 70px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.overview-text {
+    text-align: center;
+}

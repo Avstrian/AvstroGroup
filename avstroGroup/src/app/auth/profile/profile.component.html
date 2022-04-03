@@ -1,0 +1,26 @@
+<div class="profile-container">
+    <div class="names">
+        <h1>Test Testov</h1>
+        <h2>Email: test@abv.bg</h2>
+    </div>
+
+    <div class="balance">
+        <h2>Balance: $123</h2>
+        <button>Add Money</button>
+        <button>Create New Insurance</button>
+    </div>
+</div>
+
+<div class="insurances-container">
+    <h1>Your insured vehicles:</h1>
+    <div class="insured-cards">
+        <app-insurance-overview></app-insurance-overview>
+        <app-insurance-overview></app-insurance-overview>
+        <app-insurance-overview></app-insurance-overview>
+    </div>
+</div>
+
+
+<div *ngIf="astroVip">
+    <app-avstro-vip></app-avstro-vip>
+</div>

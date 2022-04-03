@@ -1,0 +1,23 @@
+.insurance-overview-container {
+    margin: 50px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 50px;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.details {
+    border-radius: 10px 10px 10px 10px;
+    background-color: orange;
+    padding: 10px 50px;
+    font-size: 22px;
+    font-weight: bolder;
+    border-style: none;
+    box-shadow: 0px 0px 2px 2px gray;
+    margin: 0 20px;
+}

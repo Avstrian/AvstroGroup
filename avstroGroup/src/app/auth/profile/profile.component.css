@@ -1,0 +1,49 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+    box-shadow: 0px 0px 2px 1px orange;
+    border-radius: 10px 10px 10px 10px;
+    padding: 50px;
+}
+
+.names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.balance {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+}
+
+.balance button {
+    border-radius: 10px 10px 10px 10px;
+    background-color: orange;
+    padding: 10px 50px;
+    font-size: 22px;
+    font-weight: bolder;
+    border-style: none;
+    box-shadow: 0px 0px 2px 2px gray;
+    margin: 0 20px;
+}
+
+.insurances-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.insured-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

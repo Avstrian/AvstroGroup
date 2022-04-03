@@ -1,0 +1,49 @@
+<div class="create-form-container">
+
+    <h1>Create New Insurance</h1>
+
+    <form class="create-form">
+        <label for="vehicleType">Type of Vehicle*</label>
+        <input type="text" name="vehicleType" id="vehicleType">
+
+        <label for="volume">Engine Volume*</label>
+        <input type="text" name="volume" id="volume">
+
+        <label for="power">Horsepower*</label>
+        <input type="text" name="power" id="power">
+
+        <label for="regNumber">Registration Number*</label>
+        <input type="text" name="regNumber" id="regNumber">
+
+        <label for="createdOn">Date of creation*</label>
+        <input type="text" name="createdOn" id="createdOn">
+
+        <label for="ownerName">Owner's name*</label>
+        <input type="text" name="ownerName" id="ownerName">
+
+        <label for="ownerAge">Owner's age*</label>
+        <input type="text" name="ownerAge" id="ownerAge">
+
+        <label for="drivingFor">Years of experience*</label>
+        <input type="text" name="drivingFor" id="drivingFor">
+
+        <label for="payment">Type of payment*</label>
+
+
+        <div class="create-radio">
+            <input type="radio" name="payment" id="quarter" value="quarterly" checked>
+            <label for="quarterly">Quarter</label>
+
+            <input type="radio" name="payment" id="half">
+            <label for="quarterly">Half</label>
+
+            <input type="radio" name="payment" id="full">
+            <label for="quarterly">Full</label>
+        </div>
+
+        <div class="form-buttons">
+            <button class="cancel">Clear</button>
+            <button class="public"><a routerLink="/confirm">Continue</a></button>
+        </div>
+    </form>
+</div>

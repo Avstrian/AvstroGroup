@@ -7,8 +7,11 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { RouterModule } from '@angular/router';
-import { PagesModule } from './components/pages.module';
+import { PagesModule } from './feature/pages/pages.module';
 import { CoreModule } from './core/core.module';
+import { AuthModule } from './auth/auth.module';
+import { InsuranceModule } from './feature/insurance/insurance.module';
+import { InsuranceRoutingModule } from './feature/insurance/insurance-routing.module';
 
 
 @NgModule({
@@ -19,11 +22,13 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     CoreModule.forRoot(),
     AppRoutingModule,
+    InsuranceRoutingModule,
     RouterModule,
     HttpClientModule,
     PagesModule,
+    AuthModule,
+    InsuranceModule
   ],
-  providers: [],
   bootstrap: [
     AppComponent,
     HeaderComponent,
