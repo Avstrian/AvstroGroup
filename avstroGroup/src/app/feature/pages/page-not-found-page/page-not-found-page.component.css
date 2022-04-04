@@ -14,7 +14,7 @@
 .error {
     font-size: 100px;
     font-weight: bolder;
-    color: rgb(85, 63, 180);
+    color: orange;
 }
 
 .error-message {
@@ -27,6 +27,7 @@
 
 a {
     text-decoration: none;
+    color: orange;
 }
 
 a:hover {

@@ -12,6 +12,8 @@ import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { InsuranceModule } from './feature/insurance/insurance.module';
 import { InsuranceRoutingModule } from './feature/insurance/insurance-routing.module';
+import { ReviewsModule } from './feature/reviews/reviews.module';
+import { ReviewsRoutingModule } from './feature/reviews/reviews-routing.module';
 
 
 @NgModule({
@@ -23,11 +25,13 @@ import { InsuranceRoutingModule } from './feature/insurance/insurance-routing.mo
     CoreModule.forRoot(),
     AppRoutingModule,
     InsuranceRoutingModule,
+    ReviewsRoutingModule,
     RouterModule,
     HttpClientModule,
     PagesModule,
     AuthModule,
-    InsuranceModule
+    InsuranceModule,
+    ReviewsModule
   ],
   bootstrap: [
     AppComponent,

@@ -9,7 +9,11 @@
     align-items: center;
 }
 
-.login-form {
+.form-title {
+    text-align: center;
+}
+
+.review-form {
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -17,20 +21,21 @@
     text-align: center;
 }
 
-.login-form * {
+.review-form * {
     font-size: large;
 }
 
-.login-form label {
+.review-form label {
     font-size: 20px;
     font-weight: bold;
 }
 
-.login-form input {
+#review {
     border-radius: 10px 10px 10px 10px;
     font-size: 18px;
     padding: 10px;
-    width: 400px;
+    min-width: 600px;
+    min-height: 200px;
     flex: 1;
     border-style: none;
     box-shadow: 0px 0px 5px 2px gray;

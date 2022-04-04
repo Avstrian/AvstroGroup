@@ -8,7 +8,6 @@
             <!--Visible to all users-->
             <div class="shared-links">
                 <a class="nav-link" routerLink="/about">About</a>
-                <a class="nav-link" href="#">Insurances</a>
             </div>
             <!--Visible to guest users-->
             <div *ngIf="!isLoggedIn" class="guest-links">
@@ -19,6 +18,7 @@
             <div *ngIf="isLoggedIn" class="user-links">
                 <a class="nav-link" routerLink="/insurances/create">Create insurance</a>
                 <a class="nav-link" href="/insurances/pay">Pay insurance</a>
+                <a class="nav-link" href="/add">Add money</a>
                 <a class="nav-link" routerLink="/profile">Profile</a>
                 <a class="nav-link">Logout</a>
             </div>

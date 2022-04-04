@@ -1,0 +1,48 @@
+.details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    text-align: center;
+    box-shadow: 0px 0px 5px 2px orange;
+    margin: 40px 100px;
+    padding: 50px;
+    font-size: 20px;
+}
+
+.details-overview {
+    display: flex;
+    align-items: center;
+    gap: 200px;
+}
+
+.vehicle-information, .owner-information {
+    box-shadow: 0px 0px 3px 2px orange;
+    padding: 30px;
+}
+
+.money-details h2 {
+    font-size: 40px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 30px;
+}
+
+.public {
+    border-radius: 10px 10px 10px 10px;
+    background-color: orange;
+    padding: 10px 50px;
+    font-size: 20px;
+    font-weight: bolder;
+    border-style: none;
+    box-shadow: 0px 0px 2px 2px gray;
+    margin: 0 20px;
+}
+
+.public a {
+    color: black;
+    text-decoration: none;
+}

@@ -1,0 +1,13 @@
+.reviews-container {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    border-radius: 10px 10px 10px 10px;
+    border: none;
+}
+
+.reviews {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

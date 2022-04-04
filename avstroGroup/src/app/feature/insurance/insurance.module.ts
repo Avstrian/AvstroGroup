@@ -7,6 +7,7 @@ import { InsuranceRoutingModule } from './insurance-routing.module';
 import { RouterModule } from '@angular/router';
 import { InsuranceConfirmComponent } from './insurance-confirm/insurance-confirm.component';
 import { InsurancePayComponent } from './insurance-pay/insurance-pay.component';
+import { InsuranceDeleteComponent } from './insurance-delete/insurance-delete.component';
 
 
 
@@ -16,7 +17,8 @@ import { InsurancePayComponent } from './insurance-pay/insurance-pay.component';
     InsuranceCreateComponent,
     InsuranceDetailsComponent,
     InsuranceConfirmComponent,
-    InsurancePayComponent
+    InsurancePayComponent,
+    InsuranceDeleteComponent
   ],
   imports: [
     CommonModule,

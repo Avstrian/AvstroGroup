@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
 import { InsuranceConfirmComponent } from "./insurance-confirm/insurance-confirm.component";
 import { InsuranceCreateComponent } from "./insurance-create/insurance-create.component";
+import { InsuranceDeleteComponent } from "./insurance-delete/insurance-delete.component";
 import { InsuranceDetailsComponent } from "./insurance-details/insurance-details.component";
 import { InsurancePayComponent } from "./insurance-pay/insurance-pay.component";
 
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'insurances/pay',
     component: InsurancePayComponent
+  },
+  {
+    path: 'insurances/delete',
+    component: InsuranceDeleteComponent
   },
   {
     path: 'insurances/:insuranceId',
