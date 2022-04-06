@@ -1,31 +1,89 @@
+<!--TODO: Switch to reactive form!!!-->
 <div class="create-form-container">
 
     <h1>Create New Insurance</h1>
 
-    <form class="create-form">
+    <form class="create-form" #newInsuranceForm="ngForm" (submit)="createInsurance()">
         <label for="vehicleType">Type of Vehicle*</label>
-        <input type="text" name="vehicleType" id="vehicleType">
+        <input #vehicleType="ngModel" type="text" name="vehicleType" ngModel required minlength="3" id="vehicleType" [class.input-error]="vehicleType.touched && vehicleType.invalid">
+
+        <ng-container *ngIf="vehicleType.touched && vehicleType.invalid">
+            <p *ngIf="vehicleType.errors?.required" class="error">
+                Vehicle type is required!
+            </p>
+            <p *ngIf="vehicleType.errors?.minlength" class="error">
+                Vehicle type must be at least 3 characters long!
+            </p>
+        </ng-container>
 
         <label for="volume">Engine Volume*</label>
-        <input type="text" name="volume" id="volume">
+        <input #volume="ngModel" type="number" name="volume" ngModel required min="1000" id="volume" [class.input-error]="volume.touched && volume.invalid">
+
+        <ng-container *ngIf="volume.touched && volume.invalid">
+            <p *ngIf="volume.errors?.required" class="error">
+                Engine volume is required!
+            </p>
+            <p *ngIf="volume.errors?.min" class="error">
+                Engine volume must be at least 1000 mililitres (1 litre)!
+            </p>
+        </ng-container>
 
         <label for="power">Horsepower*</label>
-        <input type="text" name="power" id="power">
+        <input #power="ngModel" ngModel required min="50" type="number" name="power" id="power" [class.input-error]="power.touched && power.invalid">
+
+        <ng-container *ngIf="power.touched && power.invalid">
+            <p *ngIf="power.errors?.required" class="error">
+                Horsepower is required!
+            </p>
+            <p *ngIf="power.errors?.min" class="error">
+                Horsepower must be at least 50!
+            </p>
+        </ng-container>
 
         <label for="regNumber">Registration Number*</label>
-        <input type="text" name="regNumber" id="regNumber">
+        <input #regNumber="ngModel" ngModel required minlength="7" type="text" name="regNumber" id="regNumber" [class.input-error]="regNumber.touched && regNumber.invalid">
 
-        <label for="createdOn">Date of creation*</label>
-        <input type="text" name="createdOn" id="createdOn">
+        <ng-container *ngIf="regNumber.touched && regNumber.invalid">
+            <p *ngIf="regNumber.errors?.required" class="error">
+                Registration number is required!
+            </p>
+            <p *ngIf="regNumber.errors?.minlength" class="error">
+                Registration number must be at least 7 characters long!
+            </p>
+        </ng-container>
 
         <label for="ownerName">Owner's name*</label>
-        <input type="text" name="ownerName" id="ownerName">
+        <input #ownerName="ngModel" ngModel required minlength="2" type="text" name="ownerName" id="ownerName" [class.input-error]="ownerName.touched && ownerName.invalid">
+
+        <ng-container *ngIf="ownerName.touched && ownerName.invalid">
+            <p *ngIf="ownerName.errors?.required" class="error">
+                Owner's name is required!
+            </p>
+            <p *ngIf="ownerName.errors?.minlength" class="error">
+                Owner's name must be at least 2 characters long!
+            </p>
+        </ng-container>
 
         <label for="ownerAge">Owner's age*</label>
-        <input type="text" name="ownerAge" id="ownerAge">
+        <input #ownerAge="ngModel" ngModel required min="18" type="number" name="ownerAge" id="ownerAge" [class.input-error]="ownerAge.touched && ownerAge.invalid">
+
+        <ng-container *ngIf="ownerAge.touched && ownerAge.invalid">
+            <p *ngIf="ownerAge.errors?.required" class="error">
+                Owner's age is required!
+            </p>
+            <p *ngIf="ownerAge.errors?.min" class="error">
+                Owner's age can't be lower than 18!
+            </p>
+        </ng-container>
 
         <label for="drivingFor">Years of experience*</label>
-        <input type="text" name="drivingFor" id="drivingFor">
+        <input #drivingFor="ngModel" ngModel required  type="number" name="drivingFor" id="drivingFor" [class.input-error]="drivingFor.touched && drivingFor.invalid">
+
+        <ng-container *ngIf="drivingFor.touched && drivingFor.invalid">
+            <p *ngIf="drivingFor.errors?.required" class="error">
+                Years of driving experience are required!
+            </p>
+        </ng-container>
 
         <label for="payment">Type of payment*</label>
 
@@ -42,7 +100,7 @@
         </div>
 
         <div class="form-buttons">
-            <button class="cancel">Clear</button>
+            <button type="button" class="cancel">Clear</button>
             <button class="public"><a routerLink="/confirm">Continue</a></button>
         </div>
     </form>

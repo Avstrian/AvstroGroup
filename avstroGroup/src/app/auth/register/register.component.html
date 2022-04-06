@@ -4,22 +4,66 @@
         <h1>Create Account</h1>
     </div>
 
-    <form class="register-form">
+    <form class="register-form" [formGroup]="registerFormGroup" (ngSubmit)="handleRegister()">
 
         <label for="firstName">First Name</label>
-        <input type="text" name="firstName" id="firstName">
+        <input formControlName="firstName" type="text" name="firstName" id="firstName" [class.input-error]="shouldShowError('firstName')">
+
+        <ng-container *ngIf="shouldShowError('firstName')">
+            <p class="error" *ngIf="registerFormGroup.controls['firstName'].errors?.required">
+                First name is required!
+            </p>
+            <p class="error" *ngIf="!registerFormGroup.controls['firstName'].errors?.required && registerFormGroup.controls['firstName'].errors?.minlength"> 
+                First name must be at least 2 characters long!
+            </p>
+        </ng-container>
 
         <label for="lastName">Last Name</label>
-        <input type="text" name="lastName" id="lastName">
+        <input formControlName="lastName" type="text" name="lastName" id="lastName" [class.input-error]="shouldShowError('lastName')">
+
+        <ng-container *ngIf="shouldShowError('lastName')">
+            <p class="error" *ngIf="registerFormGroup.controls['lastName'].errors?.required">
+                Last name is required!
+            </p>
+            <p class="error" *ngIf="!registerFormGroup.controls['lastName'].errors?.required && registerFormGroup.controls['lastName'].errors?.minlength"> 
+                Last name must be at least 2 characters long!
+            </p>
+        </ng-container>
 
         <label for="email">Email</label>
-        <input type="text" name="email" id="email">
+        <input formControlName="email" type="text" name="email" id="email" [class.input-error]="shouldShowError('email')">
 
-        <label for="password">Password</label>
-        <input type="text" name="password" id="password">
+        <ng-container *ngIf="shouldShowError('email')">
+            <p class="error" *ngIf="registerFormGroup.controls['email'].errors?.required">
+                Email is required!
+            </p>
+            <p class="error" *ngIf="!registerFormGroup.controls['email'].errors?.required && registerFormGroup.controls['email'].errors?.email"> 
+                Email is not valid!
+            </p>
+        </ng-container>
 
-        <label for="repass">Repeat Password</label>
-        <input type="text" name="repass" id="repass">
+        <div formGroupName="passwords" class="password-container">
+            <label for="password">Password</label>
+            <input formControlName="password" type="text" name="password" id="password" [class.input-error]="shouldShowError('password', passwordsGroup)">
+
+            <ng-container *ngIf="shouldShowError('password', passwordsGroup)">
+                <p class="error" *ngIf="passwordsGroup.controls['password'].errors?.required">
+                    Password is required!
+                </p>
+                <p class="error" *ngIf="!passwordsGroup.controls['password'].errors?.required && passwordsGroup.controls['password'].errors?.minlength"> 
+                    Password must be at least 4 characters!
+                </p>
+            </ng-container>
+
+            <label for="repass">Repeat Password</label>
+            <input formControlName="repass" type="text" name="repass" id="repass" [class.input-error]="shouldShowError('repass', passwordsGroup)">
+
+            <ng-container *ngIf="shouldShowError('repass', passwordsGroup)">
+                <p class="error" *ngIf="passwordsGroup.controls['repass'].errors?.passwordMatch">
+                    Passwords must match!
+                </p>
+            </ng-container>
+        </div>
 
         <div class="form-buttons">
             <button class="public">Create new account</button>

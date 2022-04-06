@@ -11,3 +11,11 @@
     justify-content: center;
     align-items: stretch;
 }
+
+.error {
+    color: red;
+}
+
+.input-error {
+    border-left: 3px solid red !important;
+}

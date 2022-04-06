@@ -4,6 +4,7 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { AvstroVipComponent } from './avstro-vip/avstro-vip.component';
 import { AddMoneyComponent } from './add-money/add-money.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [
     CalculatorComponent,

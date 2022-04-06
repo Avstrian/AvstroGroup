@@ -4,15 +4,26 @@
         <h1>Add money to your account</h1>
     </div>
 
-    <form class="add-form">
+    <form class="add-form" #addMoneyForm="ngForm">
         <label for="money">Add money:</label>
-        <input type="number" name="money" id="money">
+        <input #money="ngModel" ngModel required min="10" type="number" name="money" id="money" [class.input-error]="money.touched && money.invalid">
+
+        <ng-container *ngIf="money.touched && money.invalid">
+            <p class="error" *ngIf="money.errors?.required">
+                Money is required!
+            </p>
+            
+            <p class="error" *ngIf="money.errors?.min">
+                You must add at least 10 dollars!
+            </p>
+        </ng-container>
 
         <h2>Current Balance: $500</h2>
 
         <h2>Balance after adding: $750</h2>
 
         <div class="form-buttons">
+            <button class="public" type="button" (click)="cancelAddingMoney()">Cancel</button>
             <button class="public">Add money</button>
         </div>
     </form>

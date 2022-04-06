@@ -1,32 +1,45 @@
 <div class="calculator-form-container">
-    <form class="calculator-form">
-        <label for="vehicleType">Type of Vehicle*</label>
-        <input type="text" name="vehicleType" id="vehicleType">
-
+    <form class="calculator-form" #calculatorForm="ngForm" (ngSubmit)="calculateInsuranceCost(calculatorForm)">
         <label for="volume">Engine Volume*</label>
-        <input type="text" name="volume" id="volume">
+        <input #volume="ngModel" ngModel required min="1000" type="number" name="volume" id="volume" [class.input-error]="volume.touched && volume.invalid">
+
+        <ng-container *ngIf="volume.touched && volume.invalid">
+            <p *ngIf="volume.errors?.required" class="error">
+                Engine volume is required!
+            </p>
+            <p *ngIf="volume.errors?.min" class="error">
+                Engine volume must be at least 1000 mililitres (1 litre)!
+            </p>
+        </ng-container>
 
         <label for="power">Horsepower*</label>
-        <input type="text" name="power" id="power">
+        <input #power="ngModel" ngModel required min="50" type="number" name="power" id="power" [class.input-error]="power.touched && power.invalid">
 
-        <label for="regNumber">Registration Number*</label>
-        <input type="text" name="regNumber" id="regNumber">
-
-        <label for="createdOn">Date of creation*</label>
-        <input type="text" name="createdOn" id="createdOn">
-
-        <label for="ownerName">Owner's name*</label>
-        <input type="text" name="ownerName" id="ownerName">
-
-        <label for="ownerAge">Owner's age*</label>
-        <input type="text" name="ownerAge" id="ownerAge">
+        <ng-container *ngIf="power.touched && power.invalid">
+            <p *ngIf="power.errors?.required" class="error">
+                Horsepower is required!
+            </p>
+            <p *ngIf="power.errors?.min" class="error">
+                Horsepower must be at least 50!
+            </p>
+        </ng-container>
 
         <label for="drivingFor">Years of experience*</label>
-        <input type="text" name="drivingFor" id="drivingFor">
+        <input #drivingFor="ngModel" ngModel required type="number" name="drivingFor" id="drivingFor" [class.input-error]="drivingFor.touched && drivingFor.invalid">
+
+        <ng-container *ngIf="drivingFor.touched && drivingFor.invalid">
+            <p *ngIf="drivingFor.errors?.required" class="error">
+                Years of driving experience are required!
+            </p>
+        </ng-container>
 
         <div class="form-buttons">
-            <button class="cancel">Clear</button>
+            <button type="button" class="public" (click)="clearCalculator()">Clear</button>
             <button class="public">Calculate</button>
         </div>
+
+        <!-- <div *ngIf="!!insuranceCost">
+            <h1>Full cost of insurance: {{insuranceCost}}</h1>
+        </div> -->
     </form>
 </div>

@@ -5,11 +5,22 @@
         <h2>Please note: Your reviews aren't anonymous and will be shown to other people!</h2>
     </div>
 
-    <form class="review-form">
-        <label for="review"></label>
-        <textarea name="review" id="review"></textarea>
+    <form class="review-form" #reviewForm="ngForm" (ngSubmit)="addReview(reviewForm)">
+        <label for="review">Your review:</label>
+        <textarea #review="ngModel" ngModel required minlength="10" name="review" id="review" [class.input-error]="review.touched && review.invalid"></textarea>
+
+        <ng-container *ngIf="review.touched && review.invalid">
+            <p class="error" *ngIf="review.errors?.required">
+                Your review is required!
+            </p>
+
+            <p class="error" *ngIf="review.errors?.minlength">
+                Your review must be at least 10 characters long!
+            </p>
+        </ng-container>
 
         <div class="form-buttons">
+            <button type="button" class="public" (click)="clearReviewText(reviewForm)">Clear Text</button>
             <button class="public">Post review</button>
         </div>
     </form>
