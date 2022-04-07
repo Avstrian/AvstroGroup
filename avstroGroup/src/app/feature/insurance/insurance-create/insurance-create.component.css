@@ -50,6 +50,19 @@
     border: none;
 }
 
+.owner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.owner-container input {
+    flex: 1;
+    min-width: 425px;
+}
+
 .cancel, .public {
     border-radius: 10px 10px 10px 10px;
     background-color: orange;

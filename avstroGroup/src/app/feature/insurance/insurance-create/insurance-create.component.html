@@ -1,93 +1,116 @@
-<!--TODO: Switch to reactive form!!!-->
 <div class="create-form-container">
 
     <h1>Create New Insurance</h1>
 
-    <form class="create-form" #newInsuranceForm="ngForm" (submit)="createInsurance()">
+    <form class="create-form" [formGroup]="createInsuranceFormGroup" (submit)="createInsurance()">
         <label for="vehicleType">Type of Vehicle*</label>
-        <input #vehicleType="ngModel" type="text" name="vehicleType" ngModel required minlength="3" id="vehicleType" [class.input-error]="vehicleType.touched && vehicleType.invalid">
+        <input formControlName="vehicleType" type="text" name="vehicleType" id="vehicleType"
+            [class.input-error]="shouldShowError('vehicleType')">
 
-        <ng-container *ngIf="vehicleType.touched && vehicleType.invalid">
-            <p *ngIf="vehicleType.errors?.required" class="error">
+        <ng-container *ngIf="shouldShowError('vehicleType')">
+            <p *ngIf="createInsuranceFormGroup.controls['vehicleType'].errors?.required" class="error">
                 Vehicle type is required!
             </p>
-            <p *ngIf="vehicleType.errors?.minlength" class="error">
+            <p *ngIf="createInsuranceFormGroup.controls['vehicleType'].errors?.minlength" class="error">
                 Vehicle type must be at least 3 characters long!
             </p>
         </ng-container>
 
         <label for="volume">Engine Volume*</label>
-        <input #volume="ngModel" type="number" name="volume" ngModel required min="1000" id="volume" [class.input-error]="volume.touched && volume.invalid">
+        <input formControlName="volume" type="number" name="volume" id="volume"
+            [class.input-error]="shouldShowError('volume')">
 
-        <ng-container *ngIf="volume.touched && volume.invalid">
-            <p *ngIf="volume.errors?.required" class="error">
+        <ng-container *ngIf="shouldShowError('volume')">
+            <p *ngIf="createInsuranceFormGroup.controls['volume'].errors?.required" class="error">
                 Engine volume is required!
             </p>
-            <p *ngIf="volume.errors?.min" class="error">
+            <p *ngIf="createInsuranceFormGroup.controls['volume'].errors?.min" class="error">
                 Engine volume must be at least 1000 mililitres (1 litre)!
             </p>
         </ng-container>
 
         <label for="power">Horsepower*</label>
-        <input #power="ngModel" ngModel required min="50" type="number" name="power" id="power" [class.input-error]="power.touched && power.invalid">
+        <input formControlName="power" type="number" name="power" id="power"
+            [class.input-error]="shouldShowError('power')">
 
-        <ng-container *ngIf="power.touched && power.invalid">
-            <p *ngIf="power.errors?.required" class="error">
+
+        <ng-container *ngIf="shouldShowError('power')">
+            <p *ngIf="createInsuranceFormGroup.controls['power'].errors?.required" class="error">
                 Horsepower is required!
             </p>
-            <p *ngIf="power.errors?.min" class="error">
+            <p *ngIf="createInsuranceFormGroup.controls['power'].errors?.min" class="error">
                 Horsepower must be at least 50!
             </p>
         </ng-container>
 
         <label for="regNumber">Registration Number*</label>
-        <input #regNumber="ngModel" ngModel required minlength="7" type="text" name="regNumber" id="regNumber" [class.input-error]="regNumber.touched && regNumber.invalid">
+        <input formControlName="regNumber" type="text" name="regNumber" id="regNumber"
+            [class.input-error]="shouldShowError('regNumber')">
 
-        <ng-container *ngIf="regNumber.touched && regNumber.invalid">
-            <p *ngIf="regNumber.errors?.required" class="error">
+        <ng-container *ngIf="shouldShowError('regNumber')">
+            <p *ngIf="createInsuranceFormGroup.controls['regNumber'].errors?.required" class="error">
                 Registration number is required!
             </p>
-            <p *ngIf="regNumber.errors?.minlength" class="error">
-                Registration number must be at least 7 characters long!
+            <p *ngIf="createInsuranceFormGroup.controls['regNumber'].errors?.regMatch" class="error">
+                Registration number is invalid!
             </p>
         </ng-container>
 
-        <label for="ownerName">Owner's name*</label>
-        <input #ownerName="ngModel" ngModel required minlength="2" type="text" name="ownerName" id="ownerName" [class.input-error]="ownerName.touched && ownerName.invalid">
+        <div formGroupName="owner" class="owner-container">
+            <label for="firstName">Owner's first name*</label>
+            <input formControlName="firstName" type="text" name="ownerFirstName" id="ownerFirstName"
+                [class.input-error]="shouldShowError('firstName', ownerGroup)">
 
-        <ng-container *ngIf="ownerName.touched && ownerName.invalid">
-            <p *ngIf="ownerName.errors?.required" class="error">
-                Owner's name is required!
-            </p>
-            <p *ngIf="ownerName.errors?.minlength" class="error">
-                Owner's name must be at least 2 characters long!
-            </p>
-        </ng-container>
+            <ng-container *ngIf="shouldShowError('firstName', ownerGroup)">
+                <p *ngIf="ownerGroup.controls['firstName'].errors?.required" class="error">
+                    Owner's first name is required!
+                </p>
+                <p *ngIf="ownerGroup.controls['firstName'].errors?.minlength" class="error">
+                    Owner's first name must be at least 2 characters long!
+                </p>
+            </ng-container>
 
-        <label for="ownerAge">Owner's age*</label>
-        <input #ownerAge="ngModel" ngModel required min="18" type="number" name="ownerAge" id="ownerAge" [class.input-error]="ownerAge.touched && ownerAge.invalid">
+            <label for="lastName">Owner's last name*</label>
+            <input formControlName="lastName" type="text" name="ownerLastName" id="ownerLastName"
+                [class.input-error]="shouldShowError('lastName', ownerGroup)">
 
-        <ng-container *ngIf="ownerAge.touched && ownerAge.invalid">
-            <p *ngIf="ownerAge.errors?.required" class="error">
-                Owner's age is required!
-            </p>
-            <p *ngIf="ownerAge.errors?.min" class="error">
-                Owner's age can't be lower than 18!
-            </p>
-        </ng-container>
+            <ng-container *ngIf="shouldShowError('lastName', ownerGroup)">
+                <p *ngIf="ownerGroup.controls['lastName'].errors?.required" class="error">
+                    Owner's last name is required!
+                </p>
+                <p *ngIf="ownerGroup.controls['lastName'].errors?.minlength" class="error">
+                    Owner's last name must be at least 2 characters long!
+                </p>
+            </ng-container>
 
-        <label for="drivingFor">Years of experience*</label>
-        <input #drivingFor="ngModel" ngModel required  type="number" name="drivingFor" id="drivingFor" [class.input-error]="drivingFor.touched && drivingFor.invalid">
+            <label for="ownerAge">Owner's age*</label>
+            <input formControlName="ownerAge" type="number" name="ownerAge" id="ownerAge"
+                [class.input-error]="shouldShowError('ownerAge', ownerGroup)">
 
-        <ng-container *ngIf="drivingFor.touched && drivingFor.invalid">
-            <p *ngIf="drivingFor.errors?.required" class="error">
-                Years of driving experience are required!
-            </p>
-        </ng-container>
+            <ng-container *ngIf="shouldShowError('ownerAge', ownerGroup)">
+                <p *ngIf="ownerGroup.controls['ownerAge'].errors?.required" class="error">
+                    Owner's age is required!
+                </p>
+                <p *ngIf="ownerGroup.controls['ownerAge'].errors?.min" class="error">
+                    Owner's age can't be lower than 18!
+                </p>
+            </ng-container>
+
+            <label for="drivingFor">Years of experience*</label>
+            <input formControlName="drivingFor" type="number" name="drivingFor" id="drivingFor"
+                [class.input-error]="shouldShowError('drivingFor', ownerGroup)">
+
+            <ng-container *ngIf="shouldShowError('drivingFor', ownerGroup)">
+                <p *ngIf="ownerGroup.controls['drivingFor'].errors?.required" class="error">
+                    Years of driving experience are required!
+                </p>
+                <p *ngIf="ownerGroup.controls['drivingFor'].errors?.canDrive" class="error">
+                    Years of driving are invalid!
+                </p>
+            </ng-container>
+        </div>
 
         <label for="payment">Type of payment*</label>
-
-
         <div class="create-radio">
             <input type="radio" name="payment" id="quarter" value="quarterly" checked>
             <label for="quarterly">Quarter</label>
@@ -100,8 +123,8 @@
         </div>
 
         <div class="form-buttons">
-            <button type="button" class="cancel">Clear</button>
-            <button class="public"><a routerLink="/confirm">Continue</a></button>
+            <button type="button" class="cancel" (click)="cancelInsurance()">Clear</button>
+            <button class="public" (click)="createInsurance()"><a routerLink="/confirm">Continue</a></button>
         </div>
     </form>
 </div>

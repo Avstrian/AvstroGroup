@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { InsuranceConfirmComponent } from './insurance-confirm/insurance-confirm.component';
 import { InsurancePayComponent } from './insurance-pay/insurance-pay.component';
 import { InsuranceDeleteComponent } from './insurance-delete/insurance-delete.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     InsuranceRoutingModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     InsuranceOverviewComponent
