@@ -15,6 +15,15 @@ import { InsuranceRoutingModule } from './feature/insurance/insurance-routing.mo
 import { ReviewsModule } from './feature/reviews/reviews.module';
 import { ReviewsRoutingModule } from './feature/reviews/reviews-routing.module';
 
+import { AngularFireModule } from "@angular/fire/compat"
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database'
+import { AngularFirestoreModule } from "@angular/fire/compat/firestore"
+import { AngularFireStorageModule } from '@angular/fire/compat/storage'
+import { AngularFireAuthModule } from '@angular/fire/compat/auth'
+
+import { environment } from 'src/environments/environment';
+
+
 
 @NgModule({
   declarations: [
@@ -31,7 +40,12 @@ import { ReviewsRoutingModule } from './feature/reviews/reviews-routing.module';
     PagesModule,
     AuthModule,
     InsuranceModule,
-    ReviewsModule
+    ReviewsModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFirestoreModule
   ],
   bootstrap: [
     AppComponent,
