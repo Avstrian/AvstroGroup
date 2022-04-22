@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/core/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,9 +10,13 @@ export class ProfileComponent implements OnInit {
 
   public astroVip: boolean = true;
 
-  constructor() { }
+  public user!: any;
+
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
+
   }
 
 }

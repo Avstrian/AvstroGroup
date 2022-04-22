@@ -2,25 +2,24 @@
     <h1>Confirm Creation</h1>
 
     <div class="car-details">
-        <p>Registration number: TA1231FD</p>
-        <p>Type of vehicle: Truck</p>
-        <p>Engine volume: 2 litres</p>
-        <p>Vehicle date of creation: 01.02.2002</p>
+        <p>Registration number: {{insuranceDetails.regNumber}}</p>
+        <p>Type of vehicle: {{insuranceDetails.vehicleType}}</p>
+        <p>Engine volume: {{insuranceDetails.volume / 1000}} litres</p>
+        <p>Power: {{insuranceDetails.power}}</p>
     </div>
 
     <div class="owner-details">
-        <h2>Owner: Test Testov</h2>
-        <p>Age: 22</p>
-        <p>Driving experience: 2 years</p>
+        <p>Owner Age: {{insuranceDetails.ownerAge}}</p>
+        <p>Owner Driving experience: {{insuranceDetails.ownerExperience}}</p>
     </div>
 
     <div class="price">
-        <h2>Cost of full contract: $600</h2>
-        <h2>Quarterly cost: $150</h2>
+        <h2>Cost of full contract: ${{insuranceDetails.cost}}</h2>
+        <h2>{{insuranceDetails.paymentType | uppercase}} cost: ${{insuranceDetails.cost / insuranceDetails.timesLeftToPay}}</h2>
     </div>
 
     <div class="buttons">
-        <button class="cancel">Go back</button>
-        <button class="public">Confirm and Pay</button>
+        <button class="cancel" (click)="cancelInsurance()">Cancel</button>
+        <button class="public" (click)="confirmInsuranceCreation(insuranceDetails)">Confirm and Pay</button>
     </div>
 </div>

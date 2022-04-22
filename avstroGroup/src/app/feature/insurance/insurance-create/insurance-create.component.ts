@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { InsuranceService } from 'src/app/core/insurance.service';
+import { IInsurance } from 'src/app/core/interfaces';
+import { UserService } from 'src/app/core/user.service';
 import { drivingForValidator, regNumberMatch } from '../util';
 
 @Component({
@@ -22,19 +25,22 @@ export class InsuranceCreateComponent implements OnInit {
     'power': new FormControl('', [Validators.required, Validators.min(50)]),
     'regNumber': new FormControl('', [Validators.required, regNumberMatch]),
     'owner': new FormGroup({
-      'firstName': new FormControl('', [Validators.required, Validators.minLength(2)]),
-      'lastName': new FormControl('', [Validators.required, Validators.minLength(2)]),
       'ownerAge': this.ownerAgeControl,
       'drivingFor': new FormControl('', [Validators.required, drivingForValidator(this.ownerAgeControl)])
     }),
     'payment': new FormControl('', [Validators.required])
   })
 
-
   constructor(
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private insuranceService: InsuranceService,
+    private userService: UserService
   ) { }
+
+  public showConfirmPage: boolean = false;
+  
+  public insuranceDetails!: IInsurance;
 
   ngOnInit(): void {
   }
@@ -43,8 +49,28 @@ export class InsuranceCreateComponent implements OnInit {
     return sourceGroup.controls[controlName].touched && sourceGroup.controls[controlName].invalid;
   }
 
-  createInsurance(): void {
-    this.router.navigate(['/home']);
+  goToConfirmInsurance(): void {
+    const { vehicleType, volume, power, regNumber, owner, payment } = this.createInsuranceFormGroup.value;
+
+    const cost = this.insuranceService.calculateCost$(volume, power, owner.drivingFor);
+
+    const body: IInsurance = {
+      vehicleType,
+      volume,
+      power,
+      regNumber,
+      ownerAge: owner.ownerAge,
+      ownerExperience: owner.drivingFor,
+      cost,
+      paymentType: payment,
+      timesLeftToPay: this.insuranceService.checkTimesLeftToPay$(payment),
+      owner
+    }
+
+    this.insuranceDetails = body;
+
+    this.showConfirmPage = true;
+
   }
 
   cancelInsurance(): void {

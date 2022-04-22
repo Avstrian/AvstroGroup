@@ -1,10 +1,10 @@
-<div class="add-container">
+<div class="add-container" *ngIf="!!user">
 
     <div class="add-title">
         <h1>Add money to your account</h1>
     </div>
 
-    <form class="add-form" #addMoneyForm="ngForm">
+    <form class="add-form" #addMoneyForm="ngForm" (ngSubmit)="addMoneyToAccount(addMoneyForm)">
         <label for="money">Add money:</label>
         <input #money="ngModel" ngModel required min="10" type="number" name="money" id="money" [class.input-error]="money.touched && money.invalid">
 
@@ -18,14 +18,18 @@
             </p>
         </ng-container>
 
-        <h2>Current Balance: $500</h2>
+        <h2>Current Balance: ${{user.money}}</h2>
 
-        <h2>Balance after adding: $750</h2>
+        <h2>Balance after adding: ${{user.money + money.value | number}}</h2>
 
         <div class="form-buttons">
             <button class="public" type="button" (click)="cancelAddingMoney()">Cancel</button>
-            <button class="public">Add money</button>
+            <button  [disabled]="addMoneyForm.invalid" class="public">Add money</button>
         </div>
     </form>
+</div>
+
+<div *ngIf="!user">
+    Loading...
 </div>
 

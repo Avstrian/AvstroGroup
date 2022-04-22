@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 import { AboutPageComponent } from './feature/pages/about-page/about-page.component';
 import { AddMoneyPageComponent } from './feature/pages/add-money-page/add-money-page.component';
 import { HomePageComponent } from './feature/pages/home-page/home-page.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'add',
+    canActivate: [AuthGuard],
     component: AddMoneyPageComponent
   },
   {

@@ -1,8 +1,8 @@
-<div class="create-form-container">
+<div class="create-form-container" *ngIf="!showConfirmPage">
 
     <h1>Create New Insurance</h1>
 
-    <form class="create-form" [formGroup]="createInsuranceFormGroup" (submit)="createInsurance()">
+    <form class="create-form" [formGroup]="createInsuranceFormGroup" (submit)="goToConfirmInsurance()">
         <label for="vehicleType">Type of Vehicle*</label>
         <input formControlName="vehicleType" type="text" name="vehicleType" id="vehicleType"
             [class.input-error]="shouldShowError('vehicleType')">
@@ -57,32 +57,6 @@
         </ng-container>
 
         <div formGroupName="owner" class="owner-container">
-            <label for="firstName">Owner's first name*</label>
-            <input formControlName="firstName" type="text" name="ownerFirstName" id="ownerFirstName"
-                [class.input-error]="shouldShowError('firstName', ownerGroup)">
-
-            <ng-container *ngIf="shouldShowError('firstName', ownerGroup)">
-                <p *ngIf="ownerGroup.controls['firstName'].errors?.required" class="error">
-                    Owner's first name is required!
-                </p>
-                <p *ngIf="ownerGroup.controls['firstName'].errors?.minlength" class="error">
-                    Owner's first name must be at least 2 characters long!
-                </p>
-            </ng-container>
-
-            <label for="lastName">Owner's last name*</label>
-            <input formControlName="lastName" type="text" name="ownerLastName" id="ownerLastName"
-                [class.input-error]="shouldShowError('lastName', ownerGroup)">
-
-            <ng-container *ngIf="shouldShowError('lastName', ownerGroup)">
-                <p *ngIf="ownerGroup.controls['lastName'].errors?.required" class="error">
-                    Owner's last name is required!
-                </p>
-                <p *ngIf="ownerGroup.controls['lastName'].errors?.minlength" class="error">
-                    Owner's last name must be at least 2 characters long!
-                </p>
-            </ng-container>
-
             <label for="ownerAge">Owner's age*</label>
             <input formControlName="ownerAge" type="number" name="ownerAge" id="ownerAge"
                 [class.input-error]="shouldShowError('ownerAge', ownerGroup)">
@@ -112,19 +86,28 @@
 
         <label for="payment">Type of payment*</label>
         <div class="create-radio">
-            <input type="radio" name="payment" id="quarter" value="quarterly" checked>
+            <input checked type="radio" name="payment" id="quarter" value="quarter" formControlName="payment">
             <label for="quarterly">Quarter</label>
 
-            <input type="radio" name="payment" id="half">
+            <input type="radio" name="payment" id="half" value="half" formControlName="payment">
             <label for="quarterly">Half</label>
 
-            <input type="radio" name="payment" id="full">
+            <input type="radio" name="payment" id="full" value="full" formControlName="payment">
             <label for="quarterly">Full</label>
+
+            <ng-container *ngIf="shouldShowError('payment')">
+                <p class="error" *ngIf="createInsuranceFormGroup.controls['payment'].errors?.required">
+                    You need to select a payment method!
+                </p>
+            </ng-container>
         </div>
 
         <div class="form-buttons">
             <button type="button" class="cancel" (click)="cancelInsurance()">Clear</button>
-            <button class="public" (click)="createInsurance()"><a routerLink="/confirm">Continue</a></button>
+            <button class="public">Continue</button>
         </div>
     </form>
 </div>
+
+<app-insurance-confirm *ngIf="!!showConfirmPage" [insuranceDetails]="insuranceDetails">
+</app-insurance-confirm>

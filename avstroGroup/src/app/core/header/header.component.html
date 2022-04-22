@@ -10,17 +10,17 @@
                 <a class="nav-link" routerLink="/about">About</a>
             </div>
             <!--Visible to guest users-->
-            <div *ngIf="!isLoggedIn" class="guest-links">
+            <div *ngIf="!(isLoggedIn$ | async)$" class="guest-links">
                 <a class="nav-link" routerLink="/login">Login</a>
                 <a class="nav-link" routerLink="/register">Register</a>
             </div>
             <!--Visible to logged in users-->
-            <div *ngIf="isLoggedIn" class="user-links">
+            <div *ngIf="(isLoggedIn$ | async)$" class="user-links">
                 <a class="nav-link" routerLink="/insurances/create">Create insurance</a>
                 <a class="nav-link" href="/insurances/pay">Pay insurance</a>
                 <a class="nav-link" href="/add">Add money</a>
                 <a class="nav-link" routerLink="/profile">Profile</a>
-                <a class="nav-link" (click)="logout()">Logout</a>
+                <a class="nav-link" (click)="logoutHandler()">Logout</a>
             </div>
         </div>
     </nav>

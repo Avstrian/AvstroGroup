@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { InsuranceService } from './insurance.service';
+import { UserService } from './user.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+import { storageServiceProvider } from './storage.service';
 
 
 
@@ -25,6 +30,14 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
+        UserService,
+        InsuranceService,
+        storageServiceProvider,
+        {
+          provide: HTTP_INTERCEPTORS,
+          multi: true,
+          useClass: AuthInterceptor,
+        }
       ]
     }
   }

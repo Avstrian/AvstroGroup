@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
+import { UserService, CreateUserDto } from 'src/app/core/user.service';
 import { emailValidator, passwordMatch } from '../util';
 
 @Component({
@@ -14,7 +16,7 @@ export class RegisterComponent implements OnInit {
     return this.registerFormGroup.controls['passwords'] as FormGroup;
   }
 
-  passwordControl = new FormControl(null, [Validators.required, Validators.minLength(4)])
+  passwordControl = new FormControl(null, [Validators.required, Validators.minLength(6)])
   
   registerFormGroup: FormGroup = this.formBuilder.group({
     'firstName': new FormControl(null, [Validators.required, Validators.minLength(2)]),
@@ -27,8 +29,9 @@ export class RegisterComponent implements OnInit {
   });
 
   constructor(
-    private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +42,19 @@ export class RegisterComponent implements OnInit {
   }
 
   handleRegister(): void {
-    this.router.navigate(['/home'])
-  }
+    const {firstName, lastName, email, passwords } = this.registerFormGroup.value;
 
+    const body: CreateUserDto = {
+      firstName,
+      lastName,
+      email,
+      password: passwords.password,
+      repass: passwords.repass
+    }
+
+    this.authService.register$(body).subscribe(() => {
+      this.router.navigate(['/home']);
+    })
+    
+  }
 }

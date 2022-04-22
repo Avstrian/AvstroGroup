@@ -1,37 +1,47 @@
-<div class="profile-container">
-    <div class="profile-details">
-        <div class="names">
-            <h1>Test Testov</h1>
-            <h2>Email: test@abv.bg</h2>
+<div *ngIf="!!user">
+    <div class="profile-container">
+        <div class="profile-details">
+            <div class="names">
+                <h1>{{user.firstName}} {{user.lastName}}</h1>
+                <h2>Email: {{user.email}}</h2>
+            </div>
+        
+            <div class="balance">
+                <h2>Balance: ${{user.money}}</h2>
+                <button><a routerLink="/insurances/create">Create New Insurance</a></button>
+            </div>
         </div>
     
-        <div class="balance">
-            <h2>Balance: $123</h2>
-            <button><a routerLink="/insurances/create">Create New Insurance</a></button>
+    
+        <div class="add-money-container">
+            <app-add-money></app-add-money>
         </div>
     </div>
-
-
-    <div class="add-money-container">
-        <app-add-money></app-add-money>
+    
+    <div class="insurances-container">
+        <h1>Your insured vehicles:</h1>
+        <div class="insured-cards" *ngIf="!!user.insurances">
+            <app-insurance-overview *ngFor="let insurance of user.insurances"></app-insurance-overview>
+            <div *ngIf="user.insurances.length === 0">No insurances!</div>
+        </div>
+    </div>
+    
+    <div *ngIf="!user.insurances">
+        Loading...
+    </div>
+    
+    <div class="calculator-container">
+        <h1>Insurance cost calculator:</h1>
+        <app-calculator></app-calculator>
+    </div>
+    
+    
+    <div *ngIf="astroVip">
+        <app-avstro-vip></app-avstro-vip>
     </div>
 </div>
 
-<div class="insurances-container">
-    <h1>Your insured vehicles:</h1>
-    <div class="insured-cards">
-        <app-insurance-overview></app-insurance-overview>
-        <app-insurance-overview></app-insurance-overview>
-        <app-insurance-overview></app-insurance-overview>
-    </div>
-</div>
 
-<div class="calculator-container">
-    <h1>Insurance cost calculator:</h1>
-    <app-calculator></app-calculator>
-</div>
-
-
-<div *ngIf="astroVip">
-    <app-avstro-vip></app-avstro-vip>
+<div *ngIf="!user">
+    Loading...
 </div>

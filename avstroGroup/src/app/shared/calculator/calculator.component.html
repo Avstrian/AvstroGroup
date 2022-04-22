@@ -34,12 +34,12 @@
         </ng-container>
 
         <div class="form-buttons">
-            <button type="button" class="public" (click)="clearCalculator()">Clear</button>
+            <button type="button" class="public" (click)="clearCalculator(calculatorForm)">Clear</button>
             <button class="public">Calculate</button>
         </div>
 
-        <!-- <div *ngIf="!!insuranceCost">
+        <div *ngIf="!!insuranceCost">
             <h1>Full cost of insurance: {{insuranceCost}}</h1>
-        </div> -->
+        </div>
     </form>
 </div>
