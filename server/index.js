@@ -29,7 +29,7 @@ async function start() {
         origin: 'http://localhost:4200',
         credentials: true,
     }));
-    app.use(cookieParser());
+    app.use(cookieParser('some-secret'));
 
     app.use('/users', usersController);
 

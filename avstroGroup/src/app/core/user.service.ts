@@ -28,4 +28,8 @@ export class UserService {
     return this.httpClient.get<IUser>(`${environment.apiUrl}/users/profile`, { withCredentials: true })
     .pipe(tap(user => this.currentUser = user))
   }
+
+  addMoneyToUser$(body: { money: number, userId: string }): Observable<void> {
+    return this.httpClient.post<void>(`${environment.apiUrl}/users/add-money`, body, { withCredentials: true })
+  }
 }

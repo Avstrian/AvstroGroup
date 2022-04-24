@@ -1,4 +1,4 @@
-<div class="add-container" *ngIf="!!user">
+<div class="add-container" *ngIf="!!currentUser">
 
     <div class="add-title">
         <h1>Add money to your account</h1>
@@ -18,9 +18,9 @@
             </p>
         </ng-container>
 
-        <h2>Current Balance: ${{user.money}}</h2>
+        <h2>Current Balance: ${{currentUser.money}}</h2>
 
-        <h2>Balance after adding: ${{user.money + money.value | number}}</h2>
+        <h2>Balance after adding: ${{currentUser.money + money.value | number}}</h2>
 
         <div class="form-buttons">
             <button class="public" type="button" (click)="cancelAddingMoney()">Cancel</button>
@@ -29,7 +29,7 @@
     </form>
 </div>
 
-<div *ngIf="!user">
+<div *ngIf="!currentUser">
     Loading...
 </div>
 

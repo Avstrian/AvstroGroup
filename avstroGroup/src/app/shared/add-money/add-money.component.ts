@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/core/interfaces';
 import { UserService } from 'src/app/core/user.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/core/user.service';
 })
 export class AddMoneyComponent implements OnInit {
 
-  public user!: any;
+  public currentUser!: IUser;
 
   constructor(
     private router: Router,
@@ -18,6 +19,14 @@ export class AddMoneyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userService.getProfile$().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+      error: (err) => {
+        this.router.navigate(['/login']);
+      }
+    })
   }
   
   cancelAddingMoney(): void {
@@ -25,7 +34,16 @@ export class AddMoneyComponent implements OnInit {
   }
 
   addMoneyToAccount(data: NgForm): void {
-    
+    const money = Number(data.value.money);
+    const userId = this.currentUser._id
+    this.userService.addMoneyToUser$({ money, userId }).subscribe({
+      next: () => {
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
 }

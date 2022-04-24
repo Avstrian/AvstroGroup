@@ -7,7 +7,7 @@ export interface IInsurance {
     regNumber: string,
     ownerAge: number,
     ownerExperience: number,
-    owner: IUser[]
+    owner: IUser
     cost: number,
     paymentType: string,
     timesLeftToPay: number,

@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+const { model, Schema, Types: { ObjectId } } = require('mongoose');
 
 const userSchema = new Schema({
     firstName: {
@@ -19,17 +19,24 @@ const userSchema = new Schema({
     },
     money: {
         type: Number,
+        default: 0,
         min: [0, 'Money cannot be negative'],
-        required: [true, 'Money is required']
+    },
+    insurances: {
+        type: [ObjectId],
+        default: [],
+        ref: 'Insurance'
+    },
+    review: {
+        type: String,
     },
     createdInsurances: {
         type: Number,
-        min: [0, 'Created insurances cannot be negative'],
-        required: [true, 'Created insurances are required']
+        default: 0,
     },
     vip: {
         type: Boolean,
-        required: [true, 'VIP must be specified']
+        default: false,
     },
 });
 

@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const Token = require('../models/Token');
 const User = require('../models/User');
 const { createToken, JWT_SECRET} = require('../utils/jwt');
 
@@ -18,9 +18,6 @@ async function register(firstName, lastName, email, password) {
         lastName,
         email,
         hashedPassword: await bcrypt.hash(password, 10),
-        money: 0,
-        createdInsurances: 0,
-        vip: false,
     });
 
     await user.save();
@@ -44,10 +41,28 @@ async function login(email, password) {
     return createSession(user);
 }
 
+async function logout(token) {
+    await Token.create({ token });
+}
+
 async function getProfile(id) {
     const user = await User.findById(id);
 
     return createSession(user);
+}
+
+async function addMoney(money, id) {
+    const existing = await User.findById(id);
+
+
+    if (!existing) {
+        throw new Error('User does not exist!');
+    }
+
+    existing.money += money;
+    await existing.save();
+
+    return existing;
 }
 
 function createSession(user) {
@@ -60,15 +75,17 @@ function createSession(user) {
         createdInsurances: user.createdInsurances,
         vip: user.vip,
         _v: user._v,
-        accessToken: jwt.sign({
+        accessToken: createToken({
             email: user.email,
             _id: user._id
-        }, JWT_SECRET)
+        })
     };
 }
 
 module.exports = {
     register,
     login,
-    getProfile
+    logout,
+    getProfile,
+    addMoney
 }

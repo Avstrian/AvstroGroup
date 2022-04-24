@@ -1,13 +1,13 @@
-<div *ngIf="!!user">
+<div *ngIf="!!currentUser">
     <div class="profile-container">
         <div class="profile-details">
             <div class="names">
-                <h1>{{user.firstName}} {{user.lastName}}</h1>
-                <h2>Email: {{user.email}}</h2>
+                <h1>{{currentUser.firstName}} {{currentUser.lastName}}</h1>
+                <h2>Email: {{currentUser.email}}</h2>
             </div>
         
             <div class="balance">
-                <h2>Balance: ${{user.money}}</h2>
+                <h2>Balance: ${{currentUser.money}}</h2>
                 <button><a routerLink="/insurances/create">Create New Insurance</a></button>
             </div>
         </div>
@@ -20,14 +20,14 @@
     
     <div class="insurances-container">
         <h1>Your insured vehicles:</h1>
-        <div class="insured-cards" *ngIf="!!user.insurances">
-            <app-insurance-overview *ngFor="let insurance of user.insurances"></app-insurance-overview>
-            <div *ngIf="user.insurances.length === 0">No insurances!</div>
+        <div class="insured-cards" *ngIf="!!currentUser.insurances">
+            <app-insurance-overview *ngFor="let insurance of currentUser.insurances"></app-insurance-overview>
+            <div *ngIf="currentUser.insurances.length === 0">No insurances!</div>
         </div>
     </div>
     
-    <div *ngIf="!user.insurances">
-        Loading...
+    <div *ngIf="!currentUser.insurances">
+        No insurances!!
     </div>
     
     <div class="calculator-container">
@@ -36,12 +36,12 @@
     </div>
     
     
-    <div *ngIf="astroVip">
+    <div *ngIf="!currentUser.vip">
         <app-avstro-vip></app-avstro-vip>
     </div>
 </div>
 
 
-<div *ngIf="!user">
+<div *ngIf="!currentUser">
     Loading...
 </div>
