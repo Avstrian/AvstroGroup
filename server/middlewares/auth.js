@@ -4,7 +4,6 @@ const User = require('../models/User');
 const Token = require('../models/Token');
 
 function auth() {
-
     return function (req, res, next) {
         const token = req.cookies['auth-cookie'] || '';
 
@@ -38,30 +37,6 @@ function auth() {
                 }
                 next(err);
             });
-    }
-}
-
-function auth2() {
-
-    return async function (req, res, next) {
-        try {
-            if (req.cookies[authCookieName] === undefined) {
-                next();
-                return;
-            }
-
-            const token = await verifyToken(req.cookies[authCookieName]);
-            const isTokenBlacklisted = await Token.findOne({ token });
-
-            if (isTokenBlacklisted) {
-                throw new Error('Token is blacklisted!');
-            }
-
-            console.log(token);
-
-        } catch (err) {
-
-        }
     }
 }
 

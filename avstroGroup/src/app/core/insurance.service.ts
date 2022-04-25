@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
-import { UserService } from './user.service';
+import { IInsurance } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +12,27 @@ export class InsuranceService {
 
   constructor(
     private authService: AuthService,
+    private httpClient: HttpClient
   ) { }
+
+  
+  createInsurance$(data: IInsurance): Observable<void> {
+    return this.httpClient.post<void>(`${environment.apiUrl}/insurances/create`, data, { withCredentials: true });
+  }
+
+  getInsuranceById$(id: string): Observable<IInsurance> {
+    return this.httpClient.get<IInsurance>(`${environment.apiUrl}/insurances/${id}`)
+  }
+
+  getInsurancesForUser$(id: string): Observable<IInsurance[]> {
+    return this.httpClient.get<IInsurance[]>(`${environment.apiUrl}/insurances/user/${id}`);
+  }
+
+  deleteInsurance$(insuranceId: string, userId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.apiUrl}/insurances/delete/${insuranceId}`, { body: {
+      userId
+    } });
+  }
 
   calculateCost$(volume: number, power: number, experience: number): number {
     let isVip: boolean = false;
@@ -37,10 +60,6 @@ export class InsuranceService {
     }
 
     return 0
-  }
-
-  createInsurance$(data: any) {
-    
   }
 }
 

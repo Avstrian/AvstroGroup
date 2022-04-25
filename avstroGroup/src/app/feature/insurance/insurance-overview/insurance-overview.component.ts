@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IInsurance, IUser } from 'src/app/core/interfaces';
+import { UserService } from 'src/app/core/user.service';
 
 @Component({
   selector: 'app-insurance-overview',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InsuranceOverviewComponent implements OnInit {
 
-  constructor() { }
+  @Input() insurance!: IInsurance;
+
+  currentUser!: IUser;
+
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
+    this.userService.getProfile$().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+      error: (err) => {
+        //TODO: add Error
+        
+      }
+    })
   }
 
 }

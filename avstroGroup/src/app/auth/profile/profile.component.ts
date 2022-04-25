@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getProfile$().subscribe({
       next: (user) => {
         this.currentUser = user;
-        console.log(this.currentUser)
       },
       error: (err) => {
         this.router.navigate(['/login'])

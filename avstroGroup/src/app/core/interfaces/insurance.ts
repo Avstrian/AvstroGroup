@@ -1,6 +1,7 @@
 import { IUser } from "./user";
 
 export interface IInsurance {
+    _id: string,
     vehicleType: string,
     volume: number,
     power: number,
@@ -11,4 +12,5 @@ export interface IInsurance {
     cost: number,
     paymentType: string,
     timesLeftToPay: number,
+    _v: number
 }

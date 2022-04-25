@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 import { InsuranceService } from 'src/app/core/insurance.service';
-import { IInsurance } from 'src/app/core/interfaces';
+import { IInsurance, IUser } from 'src/app/core/interfaces';
 import { UserService } from 'src/app/core/user.service';
 import { drivingForValidator, regNumberMatch } from '../util';
 
@@ -40,9 +41,19 @@ export class InsuranceCreateComponent implements OnInit {
 
   public showConfirmPage: boolean = false;
   
-  public insuranceDetails!: IInsurance;
+  public insuranceDetails!: any;
+
+  public currentUser!: IUser;
 
   ngOnInit(): void {
+    this.userService.getProfile$().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+      error: (err) => {
+        this.router.navigate(['/login']);
+      }
+    })
   }
 
   shouldShowError(controlName: string, sourceGroup: FormGroup = this.createInsuranceFormGroup) {
@@ -54,7 +65,7 @@ export class InsuranceCreateComponent implements OnInit {
 
     const cost = this.insuranceService.calculateCost$(volume, power, owner.drivingFor);
 
-    const body: IInsurance = {
+    const body = {
       vehicleType,
       volume,
       power,
@@ -64,7 +75,7 @@ export class InsuranceCreateComponent implements OnInit {
       cost,
       paymentType: payment,
       timesLeftToPay: this.insuranceService.checkTimesLeftToPay$(payment),
-      owner
+      owner: this.currentUser
     }
 
     this.insuranceDetails = body;

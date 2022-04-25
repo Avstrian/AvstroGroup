@@ -93,7 +93,6 @@ router.post('/add-money', auth(), async( req, res) => {
         const { money, userId } = req.body;
         
         const result = await addMoney(money, userId);
-        console.log(result.money)
         res.status(200).json(result.money);
 
     } catch (err) {

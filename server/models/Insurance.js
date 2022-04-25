@@ -20,29 +20,33 @@ const insuranceSchema = new Schema({
         type: String,
         required: [true, 'Registration number is required!']
     },
-    ownerFirstName: {
-        type: String,
-        minlength: [2, 'Names must be at least 2 characters long!'],
-        required: [true, 'Owner names are required!']
-    },
-    ownerLastName: {
-        type: String,
-        minlength: [2, 'Names must be at least 2 characters long!'],
-        required: [true, 'Owner names are required!']
-    },
     ownerAge: {
         type: Number,
         min: [18, 'Age cannot be lower than 18'],
         required: [true, 'Age is required!']
     },
-    experience: {
+    ownerExperience: {
         type: Number,
         min: [1, 'You must have at least 1 year of driving experience!'],
         required: [true, 'Years of experience are required!']
     },
-    payment: {
+    cost: {
+        type: Number,
+        min: [100, 'Cost cannot possibly be under 100'],
+        required: [true, 'Cost is required!'],
+    },
+    paymentType: {
         type: String,
         required: [true, 'You need to specify your type of payment!']
+    },
+    timesLeftToPay: {
+        type: Number,
+        required: [true, 'Times left to pay must be specified!'],
+        min: [0, 'Times to pay cannot be negative!']
+    },
+    owner: {
+        type: ObjectId,
+        ref: 'User'
     }
 });
 

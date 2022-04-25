@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { InsuranceService } from 'src/app/core/insurance.service';
 
 import { IInsurance } from 'src/app/core/interfaces';
@@ -24,9 +25,16 @@ export class InsuranceConfirmComponent implements OnInit {
   }
 
   confirmInsuranceCreation(data: IInsurance): void {
-    this.insuranceService.createInsurance$(data);
+    this.insuranceService.createInsurance$(data).subscribe({
+      next: () => {
+        this.router.navigate(['/profile']);
+      },
+      //TODO Error displays
+      error: (err) => {
+        console.log(err);
+      }
+    })
 
-    this.router.navigate(['/home']);
   }
 
   cancelInsurance(): void {

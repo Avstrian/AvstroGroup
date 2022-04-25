@@ -1,34 +1,37 @@
-<div class="details-container">
-    <h1>TA1233DD</h1>
+<div class="details-container" *ngIf="!!insurance">
+    <h1>{{insurance.regNumber}}</h1>
 
     <div class="details-overview">
         <div class="vehicle-information">
             <h2>Vehicle:</h2>
 
-            <p>Vehicle type: Truck</p>
-            <p>Engine Volume: 2 litres</p>
-            <p>Vehicle horsepower: 200hp</p>
-            <p>Date of creation: 02.02.2000</p>
+            <p>Vehicle type: {{insurance.vehicleType}}</p>
+            <p>Engine Volume: {{(insurance.volume / 1000).toFixed(0)}} litres</p>
+            <p>Vehicle horsepower: {{insurance.power}}hp</p>
         </div>
 
-        <div class="owner-information">
+        <div class="owner-information" *ngIf="!!currentUser">
             <h2>Owner:</h2>
-            <p>First name: Test</p>
-            <p>Last name: Testov</p>
-            <p>Age: 22 years old</p>
-            <p>Driving experience: 3 years</p>
+            <p>First name: {{currentUser.firstName}}</p>
+            <p>Last name: {{currentUser.lastName}}</p>
+            <p>Age: {{insurance.ownerAge}} years old</p>
+            <p>Driving experience: {{insurance.ownerExperience}} years</p>
         </div>
     </div>
 
     <div class="money-details">
-        <h2>Quarterly Payment Method</h2>
+        <h2>{{insurance.paymentType | titlecase}} Payment Method</h2>
 
-        <p>Paid 2 out of 4 taxes</p>
-        <p>Cost of one payment: $150</p>
+        <ng-container>
+            <p *ngIf="insurance.paymentType === 'quarterly'">{{insurance.timesLeftToPay}} payments left out of 4</p>
+            <p *ngIf="insurance.paymentType === 'half'">{{insurance.timesLeftToPay}} payments left out of 2</p>
+            <p *ngIf="insurance.paymentType === 'full'">{{insurance.timesLeftToPay}} payment left!</p>            
+        </ng-container>
+        <p>Cost of one payment: ${{insurance.cost}}</p>
     </div>
 
     <div class="buttons-container">
-        <button class="public"><a routerLink="/insurances/pay">Pay Tax</a></button>
-        <button class="public"><a routerLink="/insurances/delete">Close Contract</a></button>
+        <button class="public" *ngIf="insurance.timesLeftToPay > 0"><a routerLink="/insurances/pay">Pay Tax</a></button>
+        <button class="public"><a [routerLink]="['/insurances/delete', insurance._id]">Close Contract</a></button>
     </div>
 </div>

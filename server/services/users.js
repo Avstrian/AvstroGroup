@@ -46,7 +46,7 @@ async function logout(token) {
 }
 
 async function getProfile(id) {
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate('insurances');
 
     return createSession(user);
 }
@@ -72,6 +72,7 @@ function createSession(user) {
         firstName: user.firstName,
         lastName: user.lastName,
         money: user.money,
+        insurances: user.insurances,
         createdInsurances: user.createdInsurances,
         vip: user.vip,
         _v: user._v,
@@ -87,5 +88,5 @@ module.exports = {
     login,
     logout,
     getProfile,
-    addMoney
+    addMoney,
 }

@@ -21,7 +21,7 @@
     <div class="insurances-container">
         <h1>Your insured vehicles:</h1>
         <div class="insured-cards" *ngIf="!!currentUser.insurances">
-            <app-insurance-overview *ngFor="let insurance of currentUser.insurances"></app-insurance-overview>
+            <app-insurance-overview *ngFor="let insurance of currentUser.insurances" [insurance]="insurance"></app-insurance-overview>
             <div *ngIf="currentUser.insurances.length === 0">No insurances!</div>
         </div>
     </div>

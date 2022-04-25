@@ -1,19 +1,19 @@
-<div class="insurance-overview-container">
+<div class="insurance-overview-container" *ngIf="!!insurance && !!currentUser">
     <div class="reg-number">
-        <h2>TS2002AA</h2>
+        <h2>{{insurance.regNumber}}</h2>
     </div>
 
     <div class="insurance-overview">
-        <p>Truck Insurance</p>
-        <p>For: Test Testov</p>
+        <p>{{insurance.vehicleType}} Insurance</p>
+        <p>For: {{currentUser.firstName}} {{currentUser.lastName}}</p>
     </div>
 
     <div class="createdOn">
-        <p>Type of payment: Quarterly</p>
+        <p>Type of payment: {{insurance.paymentType}}</p>
     </div>
 
     <div class="details-button-container">
-        <button class="details"><a routerLink="/insurances/13131">Details</a></button>
+        <button class="details"><a [routerLink]="['/insurances', insurance._id]">Details</a></button>
     </div>
 
 </div>

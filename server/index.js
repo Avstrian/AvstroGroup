@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 //TODO: add controllers
 const usersController = require('./controllers/users');
+const insurancesController = require('./controllers/insurances');
 
 start();
 
@@ -32,6 +33,7 @@ async function start() {
     app.use(cookieParser('some-secret'));
 
     app.use('/users', usersController);
+    app.use('/insurances', insurancesController);
 
     app.get('/', (req, res) => res.json({ message: 'REST Service Operational' }));
 

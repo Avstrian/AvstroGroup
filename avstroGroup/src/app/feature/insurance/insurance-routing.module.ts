@@ -19,7 +19,7 @@ const routes: Routes = [
     component: InsurancePayComponent
   },
   {
-    path: 'insurances/delete',
+    path: 'insurances/delete/:id',
     canActivate: [AuthGuard],
     component: InsuranceDeleteComponent
   },
