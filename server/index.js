@@ -3,9 +3,6 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
-//TODO: add middlewares
-
-//TODO: add controllers
 const usersController = require('./controllers/users');
 const insurancesController = require('./controllers/insurances');
 const reviewsController = require('./controllers/reviews');

@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { InsuranceService } from 'src/app/core/insurance.service';
 
 import { IInsurance } from 'src/app/core/interfaces';
-import { UserService } from 'src/app/core/user.service';
+import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 
 @Component({
   selector: 'app-insurance-confirm',
@@ -15,10 +14,12 @@ export class InsuranceConfirmComponent implements OnInit {
 
   @Input() insuranceDetails!: IInsurance;
 
+  errorMessage?: string;
+
   constructor(
     private router: Router,
     private insuranceService: InsuranceService,
-    private userService: UserService
+    private messageBus: MessageBusService
   ) { }
 
   ngOnInit(): void {
@@ -27,11 +28,16 @@ export class InsuranceConfirmComponent implements OnInit {
   confirmInsuranceCreation(data: IInsurance): void {
     this.insuranceService.createInsurance$(data).subscribe({
       next: () => {
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/user/profile']);
+
+        this.messageBus.notifyForMessage({
+          text: 'Insurance was successfully created!',
+          type: MessageType.Success
+        })
       },
-      //TODO Error displays
       error: (err) => {
-        console.log(err);
+        this.errorMessage = err.error.message
+        this.router.navigate(['/insurances/create']);
       }
     })
 

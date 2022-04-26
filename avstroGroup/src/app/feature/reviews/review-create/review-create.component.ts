@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IReview, IUser } from 'src/app/core/interfaces';
+import { IUser } from 'src/app/core/interfaces';
+import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 import { ReviewService } from 'src/app/core/review.service';
 import { UserService } from 'src/app/core/user.service';
 
@@ -12,12 +13,15 @@ import { UserService } from 'src/app/core/user.service';
 })
 export class ReviewCreateComponent implements OnInit {
 
+  errorMessage?: string;
+
   currentUser!: IUser;
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private messageBus: MessageBusService
   ) { }
 
   ngOnInit(): void {
@@ -26,7 +30,7 @@ export class ReviewCreateComponent implements OnInit {
         this.currentUser = user;
       },
       error: (err) => {
-        //TODO: Add error
+        this.router.navigate(['/user/login']);
       }
     })
   }
@@ -48,9 +52,14 @@ export class ReviewCreateComponent implements OnInit {
     this.reviewService.createReview$(data).subscribe({
       next: () => {
         this.router.navigate(['/home']);
+
+        this.messageBus.notifyForMessage({
+          text: 'Review created!',
+          type: MessageType.Success
+        })
       },
       error: (err) => {
-        //TODO: Add error
+        this.errorMessage = err.error.message
       }
     })
   }

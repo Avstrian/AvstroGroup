@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InsuranceService } from 'src/app/core/insurance.service';
 import { IInsurance, IUser } from 'src/app/core/interfaces';
 import { UserService } from 'src/app/core/user.service';
@@ -10,6 +10,8 @@ import { UserService } from 'src/app/core/user.service';
   styleUrls: ['./insurance-details.component.css']
 })
 export class InsuranceDetailsComponent implements OnInit {
+  
+  errorMessage?: string;
 
   insurance!: IInsurance;
   currentUser!: IUser;
@@ -17,7 +19,8 @@ export class InsuranceDetailsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private insuranceService: InsuranceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -28,7 +31,7 @@ export class InsuranceDetailsComponent implements OnInit {
         this.currentUser = user;
       },
       error: (err) => {
-        //TODO: Add error
+        this.router.navigate(['/user/login']);
       }
     })
 
@@ -37,7 +40,7 @@ export class InsuranceDetailsComponent implements OnInit {
         this.insurance = insurance
       },
       error: (err) => {
-        //TODO add error
+        this.errorMessage = err.error.message;
       }
     })
   }

@@ -25,4 +25,4 @@
     <app-review-container></app-review-container>
 </div>
 
-<app-avstro-vip *ngIf="currentUser && !currentUser.vip"></app-avstro-vip>
+<app-avstro-vip *ngIf="!!currentUser && !currentUser.vip"></app-avstro-vip>

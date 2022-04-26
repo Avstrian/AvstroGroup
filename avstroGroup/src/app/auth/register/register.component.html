@@ -66,7 +66,7 @@
         </div>
 
         <div class="form-buttons">
-            <button class="public">Create new account</button>
+            <button class="public" [disabled]="registerFormGroup.invalid || passwordsGroup.invalid">Create new account</button>
         </div>
     </form>
 </div>

@@ -4,8 +4,6 @@ import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { RegisterComponent } from "./register/register.component";
 
-
-//TODO: ADD AN AUTH GUARD TO PROFILE PAGE
 const routes: Routes = [
   {
     path: 'register',

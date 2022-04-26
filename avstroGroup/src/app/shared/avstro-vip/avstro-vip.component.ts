@@ -24,7 +24,7 @@ export class AvstroVipComponent implements OnInit {
         this.currentUser = user;
       },
       error: (err) => {
-        //TODO: Add error
+        this.router.navigate(['/login']);
       }
     })
   }

@@ -9,6 +9,8 @@ import { ReviewService } from 'src/app/core/review.service';
 })
 export class ReviewContainerComponent implements OnInit {
 
+  errorMessage?: string;
+
   public reviews: IReview[] = [];
 
   constructor(
@@ -21,7 +23,7 @@ export class ReviewContainerComponent implements OnInit {
         this.reviews = reviews
       },
       error: (err) => {
-        //TODO: Add error
+        this.errorMessage = err.error.message;
       }
     })
   }

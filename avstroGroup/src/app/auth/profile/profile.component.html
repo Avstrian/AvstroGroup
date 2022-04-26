@@ -2,6 +2,7 @@
     <div class="profile-container">
         <div class="profile-details">
             <div class="names">
+                <h1 *ngIf="currentUser.vip">VIP</h1>
                 <h1>{{currentUser.firstName}} {{currentUser.lastName}}</h1>
                 <h2>Email: {{currentUser.email}}</h2>
             </div>

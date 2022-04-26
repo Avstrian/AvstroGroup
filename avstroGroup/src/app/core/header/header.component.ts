@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { IUser } from '../interfaces/user';
-import { UserService } from '../user.service';
+import { MessageBusService, MessageType } from '../message-bus.service';
 
 @Component({
   selector: 'app-header',
@@ -19,12 +19,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subscription?: Subscription;
 
-  //TODO: add general error variables
+  message?: string;
+  isMessageError?: boolean;
 
   constructor(
     public authService: AuthService,
     private router: Router,
-    //private messageBus: MessageBusService
+    private messageBus: MessageBusService
   ) { }
   
   logoutHandler(): void {
@@ -37,7 +38,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     console.log('logout called')
     this.authService.logout$().subscribe({
       next: args => {
-        console.log(args);
       },
       complete: () => {
         this.isLoggingOut = false;
@@ -50,7 +50,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    //TODO implement error display functionality
+    this.subscription = this.messageBus.onNewMessage$.subscribe(newMessage => {
+      this.message = newMessage?.text || '';
+      this.isMessageError = newMessage?.type === MessageType.Error;
+
+      if (this.message) {
+        setTimeout(() => {
+          this.messageBus.clear();
+        }, 5000);
+      }
+    });
   }
 
   ngOnDestroy(): void {

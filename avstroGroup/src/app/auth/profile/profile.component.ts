@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
         this.currentUser = user;
       },
       error: (err) => {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/users/login'])
       }
     })
   }

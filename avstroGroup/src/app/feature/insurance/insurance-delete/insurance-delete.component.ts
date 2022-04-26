@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InsuranceService } from 'src/app/core/insurance.service';
 import { IInsurance, IUser } from 'src/app/core/interfaces';
+import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 import { UserService } from 'src/app/core/user.service';
 
 @Component({
@@ -11,6 +11,8 @@ import { UserService } from 'src/app/core/user.service';
   styleUrls: ['./insurance-delete.component.css']
 })
 export class InsuranceDeleteComponent implements OnInit {
+  
+  errorMessage?: string;
 
   public insurance!: IInsurance;
   private currentUser!: IUser;
@@ -20,6 +22,7 @@ export class InsuranceDeleteComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
+    private messageBus: MessageBusService
   ) { }
 
   ngOnInit(): void {
@@ -28,8 +31,7 @@ export class InsuranceDeleteComponent implements OnInit {
         this.insurance = insurance;
       },
       error: (err) => {
-        //TODO: add error
-      }
+        this.errorMessage = err.error.message      }
     })
 
     this.userService.getProfile$().subscribe({
@@ -37,22 +39,27 @@ export class InsuranceDeleteComponent implements OnInit {
         this.currentUser = user;
       },
       error: (err) => {
-        //TODO: Add error
+        this.router.navigate(['/user/login']);
       }
     })
   }
 
   cancelDelete(): void {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/users/profile']);
   }
 
   deleteInsurance(insuranceId: string): void {
     this.insuranceService.deleteInsurance$(insuranceId, this.currentUser._id).subscribe({
       next: () => {
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/user/profile']);
+
+        this.messageBus.notifyForMessage({
+          text: 'Insurance deleted successfuly!',
+          type: MessageType.Success
+        })
       },
       error: (err) => {
-        //TODO add error
+        this.errorMessage = err.error.message
       }
     })
   }

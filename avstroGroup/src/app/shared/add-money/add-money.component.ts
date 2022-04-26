@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/core/interfaces';
+import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 import { UserService } from 'src/app/core/user.service';
 
 @Component({
@@ -11,11 +12,14 @@ import { UserService } from 'src/app/core/user.service';
 })
 export class AddMoneyComponent implements OnInit {
 
+  errorMessage?: string
+
   public currentUser!: IUser;
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private messageBus: MessageBusService
   ) { }
 
   ngOnInit(): void {
@@ -39,9 +43,14 @@ export class AddMoneyComponent implements OnInit {
     this.userService.addMoneyToUser$({ money, userId }).subscribe({
       next: () => {
         this.router.navigate(['/home']);
+
+        this.messageBus.notifyForMessage({
+          text: 'Money added to account!',
+          type: MessageType.Success
+        })
       },
       error: (err) => {
-        console.log(err);
+        this.errorMessage = err.error.message;
       }
     })
   }

@@ -14,7 +14,6 @@ import { InsuranceModule } from './feature/insurance/insurance.module';
 import { InsuranceRoutingModule } from './feature/insurance/insurance-routing.module';
 import { ReviewsModule } from './feature/reviews/reviews.module';
 import { ReviewsRoutingModule } from './feature/reviews/reviews-routing.module';
-import { UserService } from './core/user.service';
 import { AuthService } from './auth.service';
 
 

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InsuranceService } from 'src/app/core/insurance.service';
 import { IInsurance, IUser } from 'src/app/core/interfaces';
+import { MessageBusService, MessageType } from 'src/app/core/message-bus.service';
 import { UserService } from 'src/app/core/user.service';
 
 @Component({
@@ -11,6 +12,8 @@ import { UserService } from 'src/app/core/user.service';
 })
 export class InsurancePayComponent implements OnInit {
 
+  errorMessage?: string;
+
   currentUser!: IUser;
   userInsurances: IInsurance[] = [];
   currentInsurance!: IInsurance;
@@ -19,7 +22,8 @@ export class InsurancePayComponent implements OnInit {
   constructor(
     private userService: UserService,
     private insuranceService: InsuranceService,
-    private router: Router
+    private router: Router,
+    private messageBus: MessageBusService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +39,7 @@ export class InsurancePayComponent implements OnInit {
         }
       },
       error: (err) => {
-        //TODO: Add error
+        this.router.navigate(['/user/login']);
       }
     })
   }
@@ -77,9 +81,14 @@ export class InsurancePayComponent implements OnInit {
     this.insuranceService.payForInsurance$(insuranceId, userId).subscribe({
       next: () => {
         this.router.navigate(['/home']);
+
+        this.messageBus.notifyForMessage({
+          text: 'You have successfuly paid your insurance tax!',
+          type: MessageType.Success
+        })
       },
       error: (err) => {
-        //TODO: Add error
+        this.errorMessage = err.error.message;
       }
     })
 

@@ -34,3 +34,13 @@ nav {
 .nav-link:hover {
     color: gray;
 }
+
+.error-message {
+    background-color: rgba(238, 74, 74, 0.699);
+    padding: 10px;
+}
+
+.success-message {
+    background-color: rgba(99, 230, 81, 0.699);
+    padding: 10px;
+}

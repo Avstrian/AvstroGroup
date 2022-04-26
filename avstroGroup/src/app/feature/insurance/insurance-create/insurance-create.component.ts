@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth.service';
 import { InsuranceService } from 'src/app/core/insurance.service';
-import { IInsurance, IUser } from 'src/app/core/interfaces';
+import { IUser } from 'src/app/core/interfaces';
 import { UserService } from 'src/app/core/user.service';
 import { drivingForValidator, regNumberMatch } from '../util';
 
@@ -13,6 +12,8 @@ import { drivingForValidator, regNumberMatch } from '../util';
   styleUrls: ['./insurance-create.component.css']
 })
 export class InsuranceCreateComponent implements OnInit {
+
+  errorMessage?: string;
 
   ownerAgeControl: FormControl = new FormControl('', [Validators.required, Validators.min(18)]);
 
@@ -51,7 +52,8 @@ export class InsuranceCreateComponent implements OnInit {
         this.currentUser = user;
       },
       error: (err) => {
-        this.router.navigate(['/login']);
+        this.errorMessage = err.error.message;
+        this.router.navigate(['/user/login']);
       }
     })
   }

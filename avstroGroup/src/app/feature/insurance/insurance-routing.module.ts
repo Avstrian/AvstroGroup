@@ -5,8 +5,6 @@ import { InsuranceDeleteComponent } from "./insurance-delete/insurance-delete.co
 import { InsuranceDetailsComponent } from "./insurance-details/insurance-details.component";
 import { InsurancePayComponent } from "./insurance-pay/insurance-pay.component";
 
-
-//TODO add guards
 const routes: Routes = [
   {
     path: 'insurances/create',
