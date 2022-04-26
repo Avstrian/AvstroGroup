@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
-import { StorageService } from 'src/app/core/storage.service';
-import { UserService } from 'src/app/core/user.service';
 import { emailValidator } from '../util';
 
 @Component({

@@ -1,4 +1,5 @@
 import { IInsurance } from "./insurance";
+import { IReview } from "./review";
 
 export interface IUser {
     _id: string,
@@ -7,7 +8,7 @@ export interface IUser {
     lastName: string,
     money: number;
     insurances: IInsurance[],
-    review: String,
+    review: IReview,
     createdInsurances: number;
     vip: boolean;
     _v: number;

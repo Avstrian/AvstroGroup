@@ -28,7 +28,8 @@ const userSchema = new Schema({
         ref: 'Insurance'
     },
     review: {
-        type: String,
+        type: ObjectId,
+        ref: 'Review',
     },
     createdInsurances: {
         type: Number,

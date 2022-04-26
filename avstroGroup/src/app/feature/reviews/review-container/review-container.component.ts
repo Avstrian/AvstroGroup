@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IReview } from 'src/app/core/interfaces';
+import { ReviewService } from 'src/app/core/review.service';
 
 @Component({
   selector: 'app-review-container',
@@ -7,11 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewContainerComponent implements OnInit {
 
-  public reviews: Number[] = [1, 2, 3]
+  public reviews: IReview[] = [];
 
-  constructor() { }
+  constructor(
+    private reviewService: ReviewService
+  ) { }
 
   ngOnInit(): void {
+    this.reviewService.getAllReviews$().subscribe({
+      next: (reviews) => {
+        this.reviews = reviews
+      },
+      error: (err) => {
+        //TODO: Add error
+      }
+    })
   }
 
 }

@@ -7,7 +7,7 @@ import { InsuranceService } from './insurance.service';
 import { UserService } from './user.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
-import { storageServiceProvider } from './storage.service';
+import { ReviewService } from './review.service';
 
 
 
@@ -32,7 +32,7 @@ export class CoreModule {
       providers: [
         UserService,
         InsuranceService,
-        storageServiceProvider,
+        ReviewService,
         {
           provide: HTTP_INTERCEPTORS,
           multi: true,

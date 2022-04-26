@@ -3,19 +3,26 @@
 
     <div class="pay-options">
         <select (change)="selectChangeHandler($event)">
-            <option *ngFor="let insurance of currentUser.insurances">{{insurance.regNumber}}</option>
+            <option>--Select Insurance--</option>
+            <option *ngFor="let insurance of userInsurances">{{insurance.regNumber}}</option>
         </select>
     </div>
 
-    <div class="pay-options-result">
-        <h3>Type:  insurance</h3>
-        <h2>Cost: $150</h2>
-    </div>
+    <ng-container *ngIf="showCurrentInsurance">
+        <div class="pay-options-result">
+            <h3>Type: {{currentInsurance.vehicleType}} insurance</h3>
+            <h2>Cost: ${{currentInsurance.cost}}</h2>
+        </div>
+    </ng-container>
 
     <div class="my-money">
-        <h2>Your wallet: $999</h2>
+        <h2>Your wallet: ${{currentUser.money}}</h2>
     </div>
 
-    <button class="public">Make Payment</button>
+    <button class="public" (click)="payForInsurance()">Make Payment</button>
     <button class="public"><a routerLink="/add">Add Money to Account</a></button>
+</div>
+
+<div class="pay-container" *ngIf="!userInsurances">
+    <h2>No insurances!</h2>
 </div>

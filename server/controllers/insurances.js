@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const mapErrors = require('../utils/mappers');
-const { checkEmptyInputs } = require('../utils/inputs');
 const auth = require('../middlewares/auth');
-const { createInsurance, getInsuranceById, deleteInsurance, removeInsuranceFromUser } = require('../services/insurances');
+const { createInsurance, getInsuranceById, deleteInsurance, removeInsuranceFromUser, payForInsurance } = require('../services/insurances');
 const { addInsuranceToUser } = require('../services/insurances');
 
 router.post('/create', auth(), async (req, res) => {
@@ -46,11 +45,21 @@ router.get('/:id', auth(), async (req, res) => {
     }
 });
 
-router.get('/user/:id', auth(), async (req, res) => {
-    const id = req.params.id;
+router.put('/:id', auth(), async (req, res) => {
+    const insuranceId = req.params.id;
+    const userId = req.user.id;
 
-    console.log(id);
+    try {
+        const result = await payForInsurance(insuranceId, userId)
+
+        res.status(200).json({});
+    } catch (err) {
+        console.error(err.message);
+        const error = mapErrors(err);
+        res.status(400).json({ message: error });
+    }
 })
+
 
 router.delete('/delete/:id', auth(), async (req, res) => {
     const insuranceId = req.params.id;

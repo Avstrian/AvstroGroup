@@ -30,6 +30,16 @@
     font-weight: bold;
 }
 
+#rating {
+    border-radius: 10px 10px 10px 10px;
+    font-size: 18px;
+    padding: 10px;
+    border-style: none;
+    box-shadow: 0px 0px 5px 2px gray;
+    width: 300px;
+    align-self: center;
+}
+
 #review {
     border-radius: 10px 10px 10px 10px;
     font-size: 18px;

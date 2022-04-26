@@ -6,8 +6,25 @@
     </div>
 
     <form class="review-form" #reviewForm="ngForm" (ngSubmit)="addReview(reviewForm)">
+        <label for="rating">Your rating:</label>
+        <input #rating="ngModel" type="number" ngModel required min="1" max="10" name="rating" id="rating" placeholder="Insert rating..." [class.input-error]="rating.touched && rating.invalid">
+
+        <ng-container *ngIf="rating.touched && rating.invalid">
+            <p class="error" *ngIf="rating.errors?.required">
+                Your rating is required!
+            </p>
+
+            <p class="error" *ngIf="rating.errors?.min">
+                Your rating can't be lower than 1!
+            </p>
+
+            <p class="error" *ngIf="rating.errors?.max">
+                Your rating can't be higher than 10!
+            </p>
+        </ng-container>
+
         <label for="review">Your review:</label>
-        <textarea #review="ngModel" ngModel required minlength="10" name="review" id="review" [class.input-error]="review.touched && review.invalid"></textarea>
+        <textarea #review="ngModel" ngModel required minlength="10" maxlength="90" name="review" id="review" [class.input-error]="review.touched && review.invalid"></textarea>
 
         <ng-container *ngIf="review.touched && review.invalid">
             <p class="error" *ngIf="review.errors?.required">
@@ -16,6 +33,10 @@
 
             <p class="error" *ngIf="review.errors?.minlength">
                 Your review must be at least 10 characters long!
+            </p>
+
+            <p class="error" *ngIf="review.errors?.maxlength">
+                Your review can have up to 90 characters!
             </p>
         </ng-container>
 

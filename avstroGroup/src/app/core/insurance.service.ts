@@ -24,14 +24,14 @@ export class InsuranceService {
     return this.httpClient.get<IInsurance>(`${environment.apiUrl}/insurances/${id}`)
   }
 
-  getInsurancesForUser$(id: string): Observable<IInsurance[]> {
-    return this.httpClient.get<IInsurance[]>(`${environment.apiUrl}/insurances/user/${id}`);
-  }
-
   deleteInsurance$(insuranceId: string, userId: string): Observable<void> {
     return this.httpClient.delete<void>(`${environment.apiUrl}/insurances/delete/${insuranceId}`, { body: {
       userId
     } });
+  }
+
+  payForInsurance$(insuranceId: string, userId: string): Observable<void> {
+    return this.httpClient.put<void>(`${environment.apiUrl}/insurances/${insuranceId}`, {}, {withCredentials: true})
   }
 
   calculateCost$(volume: number, power: number, experience: number): number {
